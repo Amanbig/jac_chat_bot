@@ -1,0 +1,38 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.typing-effect {
+    transition: opacity 0.3s ease-out;
+}
+
+.typing-effect::after {
+    content: '▋';
+    display: inline-block;
+    vertical-align: bottom;
+    animation: blink 1s step-start infinite;
+    margin-left: 2px;
+    opacity: 0;
+}
+
+.typing-effect.typing::after {
+    opacity: 1;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
