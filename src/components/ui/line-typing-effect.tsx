@@ -16,6 +16,7 @@ interface LineTypingEffectProps {
     staggerChildren?: number;
     cursor?: boolean;
     cursorChar?: string;
+    linkClassName?: string;
 }
 
 export function LineTypingEffect({
@@ -27,7 +28,8 @@ export function LineTypingEffect({
     renderMarkdown = false,
     staggerChildren = 0.1,
     cursor = true,
-    cursorChar = '|'
+    cursorChar = '|',
+    linkClassName = 'text-blue-600 cursor-pointer hover:text-cyan-800 font-bold'
 }: LineTypingEffectProps) {
     const [lines, setLines] = useState<string[]>([]);
     const [visibleLines, setVisibleLines] = useState<number>(0);
@@ -168,7 +170,25 @@ export function LineTypingEffect({
                                     ),
                                     ol: ({ node, ...props }) => (
                                         <ol {...props} className="list-decimal pl-5" />
-                                    )
+                                    ),
+                                    a: ({ node, href, ...props }) => (
+                                        <a
+                                            href={href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className={linkClassName}
+                                            {...props}
+                                        />
+                                    ),
+                                    table: ({ node, ...props }) => (
+                                        <table className="border-collapse border border-gray-400" {...props} />
+                                    ),
+                                    th: ({ node, ...props }) => (
+                                        <th className="border border-gray-300 p-2 bg-gray-100" {...props} />
+                                    ),
+                                    td: ({ node, ...props }) => (
+                                        <td className="border border-gray-300 p-2" {...props} />
+                                    ),
                                 }}
                             >
                                 {line}

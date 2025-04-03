@@ -252,7 +252,7 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                                     </Avatar>
                                     <div className="flex-1 overflow-hidden">
                                         <div className="text-sm font-medium mb-1">
-                                            {message.role === "user" ? "You" : "Assistant"}
+                                            {message.role === "user" ? "You" : "JAC BOT"}
                                         </div>
                                         <div className={cn(
                                             "prose prose-sm max-w-none",

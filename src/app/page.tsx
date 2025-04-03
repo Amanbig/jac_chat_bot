@@ -67,8 +67,9 @@ export default function Home() {
             </div>
           </div>
           <div className="fixed bottom-0 left-0 right-0 p-4 bg-black/20 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-7xl mx-auto text-center">
               <UserInputBar onSubmit={handleSubmit} isLoading={isLoading} />
+              <p className='text-sm text-amber-500 pt-2'>JAC BOT can make mistakes. Please double-check responses and refer to website <a className='text-cyan-600 cursor-pointer hover:text-cyan-800'>https://jacchd.admissions.nic.in/</a></p>
             </div>
           </div>
         </>

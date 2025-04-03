@@ -85,7 +85,6 @@ const UserInputBar: React.FC<UserInputBarProps> = ({ onSubmit, isLoading }) => {
           </Button>
         </form>
       </div>
-      <p className='text-sm text-amber-500 pt-2'>JAC BOT can make mistakes. Please double-check responses and refer to website <a className='text-cyan-600 cursor-pointer hover:text-cyan-800'>https://jacchd.admissions.nic.in/</a></p>
     </div>
   );
 };
