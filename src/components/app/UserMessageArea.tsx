@@ -97,7 +97,6 @@ function Sources({ sources }: SourcesProps) {
         }
         return acc;
     }, []);
-    console.log(uniqueSources) // Debugging printout of uniqueSources array
 
     return (
         <div className="mt-4 space-y-2">
@@ -114,7 +113,7 @@ function Sources({ sources }: SourcesProps) {
                         <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2">
                                 <Link
-                                    href={`/pdfs/${source.source}${source.source.includes('.') ? '' : '.pdf'}`}
+                                    href={`/pdfs/${source.source}${source.source.includes('.') ? '' : '.pdf'}${source.page ? '#page=' + source.page : ''}`}
                                     className="text-blue-400 hover:text-blue-300 underline font-medium"
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -214,6 +213,11 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
         lastMessageCount.current = messages.length;
     }, [messages, isUserScrolling]);
 
+    // Function to trim leading/trailing whitespace while preserving internal formatting
+    const trimMessage = (content: string) => {
+        return content.trim();
+    };
+
     return (
         <div className="flex justify-center w-full">
             <div className="w-full">
@@ -222,95 +226,108 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                     ref={scrollAreaRef}
                 >
                     <div className="flex flex-col gap-6 p-6">
-                        {messages.map((message) => (
-                            <div
-                                key={message.id}
-                                className={cn(
-                                    "flex items-start gap-4 rounded-3xl p-6 w-fit max-w-[95%] mx-4",
-                                    message.role === "user"
-                                        ? "ml-auto bg-muted"
-                                        : "bg-black"
-                                )}
-                            >
-                                <Avatar className="h-8 w-8 shrink-0 border border-gray-200">
-                                    {message.role === "assistant" ? (
-                                        <>
-                                            <AvatarImage src="/bot-avatar.png" alt="AI Assistant" />
-                                            <AvatarFallback>AI</AvatarFallback>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <AvatarImage src="/user-avatar.png" alt="User" />
-                                            <AvatarFallback>U</AvatarFallback>
-                                        </>
+                        {messages.map((message) => {
+                            const trimmedContent = message.role === "user" ? trimMessage(message.content) : message.content;
+
+                            return (
+                                <div
+                                    key={message.id}
+                                    className={cn(
+                                        "flex items-start gap-4 rounded-3xl p-6 w-full max-w-[95%]",
+                                        message.role === "user" ? "bg-muted" : "bg-black"
                                     )}
-                                </Avatar>
-                                <div className="flex-1 overflow-hidden">
-                                    <div className="text-sm font-medium mb-1">
-                                        {message.role === "user" ? "You" : "Assistant"}
-                                    </div>
-                                    <div className={cn(
-                                        "prose prose-sm max-w-none",
-                                        message.role === "user" ? "prose-invert" : "dark:prose-invert"
-                                    )}>
+                                >
+                                    <Avatar className="h-8 w-8 shrink-0 border border-gray-200">
                                         {message.role === "assistant" ? (
                                             <>
-                                                <div className="prose-pre:bg-black/80 prose-pre:border prose-pre:border-gray-800">
-                                                    <LineTypingEffect
-                                                        content={message.content || ''}
-                                                        speed={300}
-                                                        initialDelay={500}
-                                                        renderMarkdown={true}
-                                                        staggerChildren={0.2}
-                                                        cursor={true}
-                                                        cursorChar="▋"
-                                                        className="prose-code:text-blue-400"
-                                                    />
-                                                </div>
-                                                {message.sources && message.sources.length > 0 && (
-                                                    <Sources sources={message.sources} />
-                                                )}
-                                                <MessageActions
-                                                    content={message.content}
-                                                    onRegenerate={message.role === "assistant" ? () => { } : undefined}
-                                                />
+                                                <AvatarImage src="/bot-avatar.png" alt="AI Assistant" />
+                                                <AvatarFallback>AI</AvatarFallback>
                                             </>
                                         ) : (
-                                            <ReactMarkdown components={{
-                                                code: ({ children }) => <code className="text-blue-400">{children}</code>,
-                                                a: ({ children, href }) => {
-                                                    if (typeof children === 'string' && children.startsWith('[') && children.endsWith(']')) {
-                                                        const sourceName = children.slice(1, -1);
-                                                        const source = message.sources?.find(s => s.source === sourceName);
-                                                        if (source) {
-                                                            const fileExt = sourceName.includes('.') ? '' : '.pdf';
-                                                            const pageInfo = source.page ? ` (Page ${source.page})` : '';
-                                                            return (
-                                                                <a
-                                                                    href={`/public/${sourceName}${fileExt}`}
-                                                                    className="text-blue-400 hover:text-blue-300 underline"
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                >
-                                                                    {sourceName}{pageInfo}
-                                                                </a>
-                                                            );
-                                                        }
-                                                    }
-                                                    return (
-                                                        <a href={href} className="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer">
-                                                            {children}
-                                                        </a>
-                                                    );
-                                                }
-                                            }}>
-                                                {message.content}
-                                            </ReactMarkdown>
+                                            <>
+                                                <AvatarImage src="/user-avatar.png" alt="User" />
+                                                <AvatarFallback>U</AvatarFallback>
+                                            </>
                                         )}
+                                    </Avatar>
+                                    <div className="flex-1 overflow-hidden">
+                                        <div className="text-sm font-medium mb-1">
+                                            {message.role === "user" ? "You" : "Assistant"}
+                                        </div>
+                                        <div className={cn(
+                                            "prose prose-sm max-w-none",
+                                            message.role === "user" ? "prose-invert" : "dark:prose-invert"
+                                        )}>
+                                            {message.role === "assistant" ? (
+                                                <>
+                                                    <div className="prose-pre:bg-black/80 prose-pre:border prose-pre:border-gray-800">
+                                                        <LineTypingEffect
+                                                            content={message.content || ''}
+                                                            speed={300}
+                                                            initialDelay={500}
+                                                            renderMarkdown={true}
+                                                            staggerChildren={0.2}
+                                                            cursor={true}
+                                                            cursorChar="▋"
+                                                            className="prose-code:text-blue-400"
+                                                        />
+                                                    </div>
+                                                    {message.sources && message.sources.length > 0 && (
+                                                        <Sources sources={message.sources} />
+                                                    )}
+                                                    <MessageActions
+                                                        content={message.content}
+                                                        onRegenerate={message.role === "assistant" ? () => { } : undefined}
+                                                    />
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <div className="whitespace-pre-wrap break-words">
+                                                        <ReactMarkdown components={{
+                                                            pre: ({ children }) => <pre className="overflow-x-auto max-w-full p-4 my-4 bg-gray-900 rounded-lg border border-gray-700">{children}</pre>,
+                                                            code: ({ inline, className, children }) => {
+                                                                if (inline) {
+                                                                    return <code className="text-blue-400 bg-black/30 px-1 py-0.5 rounded">{children}</code>;
+                                                                }
+                                                                return <code className="block text-blue-400 bg-black/30 p-1 rounded">{children}</code>;
+                                                            },
+                                                            a: ({ children, href }) => {
+                                                                if (typeof children === 'string' && children.startsWith('[') && children.endsWith(']')) {
+                                                                    const sourceName = children.slice(1, -1);
+                                                                    const source = message.sources?.find(s => s.source === sourceName);
+                                                                    if (source) {
+                                                                        const fileExt = sourceName.includes('.') ? '' : '.pdf';
+                                                                        const pageInfo = source.page ? ` (Page ${source.page})` : '';
+                                                                        return (
+                                                                            <a
+                                                                                href={`/public/${sourceName}${fileExt}`}
+                                                                                className="text-blue-400 hover:text-blue-300 underline"
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer"
+                                                                            >
+                                                                                {sourceName}{pageInfo}
+                                                                            </a>
+                                                                        );
+                                                                    }
+                                                                }
+                                                                return (
+                                                                    <a href={href} className="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer">
+                                                                        {children}
+                                                                    </a>
+                                                                );
+                                                            }
+                                                        }}>
+                                                            {trimmedContent}
+                                                        </ReactMarkdown>
+                                                    </div>
+                                                    <MessageActions content={message.content} />
+                                                </>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                         {/* Invisible div to scroll to end */}
                         <div ref={messagesEndRef} />
                     </div>
