@@ -7,7 +7,7 @@ import ReactMarkdown from "react-markdown";
 import { Check, Copy, RotateCw } from "lucide-react";
 import { LineTypingEffect } from "@/components/ui/line-typing-effect";
 import "prismjs/themes/prism.css";
-import Link from "next/link";
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface Source {
     source: string;
@@ -81,14 +81,16 @@ function MessageActions({ content, onRegenerate }: MessageActionsProps) {
     );
 }
 
+
 function Sources({ sources }: SourcesProps) {
+    const [isOpen, setIsOpen] = useState(false);
+
     if (!sources || sources.length === 0) return null;
 
     // Remove duplicate sources based on source name and page number
     const uniqueSources = sources.reduce((acc: Source[], current) => {
-        const isDuplicate = acc.some(item =>
-            item.source === current.source &&
-            item.page === current.page
+        const isDuplicate = acc.some(
+            (item) => item.source === current.source && item.page === current.page
         );
         if (!isDuplicate) {
             acc.push(current);
@@ -96,60 +98,91 @@ function Sources({ sources }: SourcesProps) {
         return acc;
     }, []);
 
-    const filteredSources = uniqueSources.filter(source => source.relevance>=0.5);
+    const filteredSources = uniqueSources.filter((source) => source.relevance >= 0.5);
 
     return (
-        <div className="mt-4 space-y-2">
-            <div className="text-sm font-medium text-gray-200 flex items-center gap-2">
-                <span>Sources</span>
-                <span className="text-xs text-gray-400">({filteredSources.length} found)</span>
-            </div>
-            <div className="space-y-2">
-                {filteredSources.map((source, index) => (
-                    <div
-                        key={`${source.source}-${source.page}-${index}`}
-                        className="bg-gray-800/50 hover:bg-gray-800/70 rounded-lg p-3 text-sm border border-gray-700 transition-colors duration-200"
+        <div className="mt-4">
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="flex w-full items-center justify-between rounded-lg bg-gray-800/50 p-3 text-sm font-medium text-gray-200 transition-colors duration-200 hover:bg-gray-800/70"
+            >
+                <div className="flex items-center gap-2">
+                    <span>Sources</span>
+                    <span className="text-xs text-gray-400">
+                        ({filteredSources.length} found)
+                    </span>
+                </div>
+                <motion.span
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    className="text-gray-400"
+                >
+                    ▼
+                </motion.span>
+            </button>
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        className="mt-2 space-y-2 overflow-hidden"
                     >
-                        <div className="flex items-center justify-between mb-2">
-                            <div className="flex items-center gap-2">
-                                <a
-                                    href={`/pdfs/${source.source}${source.source.includes('.') ? '' : '.pdf'}${source.page ? '#page=' + source.page : ''}`}
-                                    className="text-blue-400 hover:text-blue-300 underline font-medium"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    title={`Open ${source.source}`}
+                        <div className="max-h-[300px] overflow-y-auto space-y-2">
+                            {filteredSources.map((source, index) => (
+                                <motion.div
+                                    key={`${source.source}-${source.page}-${index}`}
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.2, delay: index * 0.05 }}
+                                    className="rounded-lg border border-gray-700 bg-gray-800/50 p-3 text-sm transition-colors duration-200 hover:bg-gray-800/70"
                                 >
-                                    {source.source}
-                                </a>
-                                {source.page && (
-                                    <span className="text-gray-400 text-xs px-2 py-0.5 bg-gray-700/50 rounded">
-                                        Page {source.page}
-                                    </span>
-                                )}
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <span className="text-xs text-gray-400">{source.type}</span>
-                                <span
-                                    className={cn(
-                                        "px-2 py-0.5 rounded text-xs",
-                                        source.relevance > 0.7 ? "bg-green-500/20 text-green-400" :
-                                            source.relevance > 0.4 ? "bg-yellow-500/20 text-yellow-400" :
-                                                "bg-gray-500/20 text-gray-400"
+                                    <div className="mb-2 flex items-center justify-between">
+                                        <div className="flex items-center gap-2">
+                                            <a
+                                                href={`/pdfs/${source.source}${source.source.includes('.') ? '' : '.pdf'}${source.page ? '#page=' + source.page : ''}`}
+                                                className="font-medium text-blue-400 underline transition-colors duration-150 hover:text-blue-300"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                title={`Open ${source.source}`}
+                                            >
+                                                {source.source}
+                                            </a>
+                                            {source.page && (
+                                                <span className="rounded bg-gray-700/50 px-2 py-0.5 text-xs text-gray-400">
+                                                    Page {source.page}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xs text-gray-400">{source.type}</span>
+                                            <span
+                                                className={cn(
+                                                    'rounded px-2 py-0.5 text-xs font-medium',
+                                                    source.relevance > 0.7
+                                                        ? 'bg-green-500/20 text-green-400'
+                                                        : source.relevance > 0.4
+                                                            ? 'bg-yellow-500/20 text-yellow-400'
+                                                            : 'bg-gray-500/20 text-gray-400'
+                                                )}
+                                                title="Source relevance score"
+                                            >
+                                                {(source.relevance * 100).toFixed(0)}% match
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {source.content_preview && (
+                                        <div className="mt-2 border-l-2 border-gray-700 pl-3 text-xs leading-relaxed text-gray-300">
+                                            {source.content_preview}
+                                        </div>
                                     )}
-                                    title="Source relevance score"
-                                >
-                                    {(source.relevance * 100).toFixed(0)}% match
-                                </span>
-                            </div>
+                                </motion.div>
+                            ))}
                         </div>
-                        {source.content_preview && (
-                            <div className="text-gray-300 text-xs leading-relaxed border-l-2 border-gray-700 pl-3 mt-2">
-                                {source.content_preview}
-                            </div>
-                        )}
-                    </div>
-                ))}
-            </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
