@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
-import { Copy, RotateCw } from "lucide-react";
+import { Check, Copy, RotateCw } from "lucide-react";
 import { LineTypingEffect } from "@/components/ui/line-typing-effect";
 import "prismjs/themes/prism.css";
 import Link from "next/link";
@@ -57,13 +57,11 @@ function MessageActions({ content, onRegenerate }: MessageActionsProps) {
                 onClick={handleCopy}
                 title="Copy message"
             >
-                <Copy className={cn("h-4 w-4", isCopied && "text-green-500")} />
-                <span className={cn(
-                    "absolute -bottom+58 left-1/2 transform -translate-x-1/2 text-white text-xs px-1 py-1 rounded transition-all duration-200",
-                    isCopied ? "bg-green-600 opacity-100" : "bg-gray-800 opacity-0 group-hover:opacity-100"
-                )}>
-                    {isCopied ? "Copied!" : "Copy"}
-                </span>
+                {
+                    !isCopied ?<Copy className="w-5 h-5" />
+                    :<Check className="w-5 h-5" />
+                }
+                
             </Button>
             {onRegenerate && (
                 <Button
@@ -98,14 +96,16 @@ function Sources({ sources }: SourcesProps) {
         return acc;
     }, []);
 
+    const filteredSources = uniqueSources.filter(source => source.relevance>=0.5);
+
     return (
         <div className="mt-4 space-y-2">
             <div className="text-sm font-medium text-gray-200 flex items-center gap-2">
                 <span>Sources</span>
-                <span className="text-xs text-gray-400">({uniqueSources.length} found)</span>
+                <span className="text-xs text-gray-400">({filteredSources.length} found)</span>
             </div>
             <div className="space-y-2">
-                {uniqueSources.map((source, index) => (
+                {filteredSources.map((source, index) => (
                     <div
                         key={`${source.source}-${source.page}-${index}`}
                         className="bg-gray-800/50 hover:bg-gray-800/70 rounded-lg p-3 text-sm border border-gray-700 transition-colors duration-200"
