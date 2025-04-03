@@ -6,6 +6,7 @@ import UserMessageArea from "@/components/app/UserMessageArea";
 import { Message } from '@/types/message';
 import { motion } from 'framer-motion';
 import { askQuestion, createSession } from '@/lib/api';
+import { Toaster, toast } from 'sonner';
 
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -19,6 +20,7 @@ export default function Home() {
         setSessionId(id);
       } catch (error) {
         console.error('Failed to initialize session:', error);
+        toast.error('Failed to initialize session. Please refresh the page.');
       }
     };
 
@@ -27,7 +29,7 @@ export default function Home() {
 
   const handleSubmit = async (content: string) => {
     if (!sessionId) {
-      console.error('No session ID available');
+      toast.error('No active session. Please refresh the page.');
       return;
     }
 
@@ -52,6 +54,7 @@ export default function Home() {
       setMessages(prevMessages => [...prevMessages, assistantMessage]);
     } catch (error) {
       console.error('Error getting response:', error);
+      toast.error('Failed to get a response. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -59,6 +62,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen w-full max-w-7xl mx-auto px-4 relative">
+      {/* Add Sonner Toaster component */}
+      <Toaster position="top-center" richColors theme='dark' />
+
       {messages.length > 0 ? (
         <>
           <div className="flex-1 overflow-y-auto pb-24">
