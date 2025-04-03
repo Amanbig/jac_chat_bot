@@ -112,7 +112,7 @@ function Sources({ sources }: SourcesProps) {
                     >
                         <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2">
-                                <Link
+                                <a
                                     href={`/pdfs/${source.source}${source.source.includes('.') ? '' : '.pdf'}${source.page ? '#page=' + source.page : ''}`}
                                     className="text-blue-400 hover:text-blue-300 underline font-medium"
                                     target="_blank"
@@ -120,7 +120,7 @@ function Sources({ sources }: SourcesProps) {
                                     title={`Open ${source.source}`}
                                 >
                                     {source.source}
-                                </Link>
+                                </a>
                                 {source.page && (
                                     <span className="text-gray-400 text-xs px-2 py-0.5 bg-gray-700/50 rounded">
                                         Page {source.page}
