@@ -61,7 +61,7 @@ const UserInputBar: React.FC<UserInputBarProps> = ({ onSubmit, isLoading }) => {
   };
 
   return (
-    <div className='flex justify-center text-center'>
+    <div className='flex flex-col justify-center text-center items-center'>
       <div className='w-[70%] p-3 border-2 border-gray-600 rounded-4xl shadow-2xl shadow-gray-700'>
         <form onSubmit={handleSubmit} className="flex gap-2 items-end">
           <textarea
@@ -85,6 +85,7 @@ const UserInputBar: React.FC<UserInputBarProps> = ({ onSubmit, isLoading }) => {
           </Button>
         </form>
       </div>
+      <p className='text-sm text-amber-500 pt-2'>JAC BOT can make mistakes. Please double-check responses and refer to website <a className='text-cyan-600 cursor-pointer hover:text-cyan-800'>https://jacchd.admissions.nic.in/</a></p>
     </div>
   );
 };
