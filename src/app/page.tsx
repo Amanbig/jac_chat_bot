@@ -7,6 +7,7 @@ import { Message } from '@/types/message';
 import { motion } from 'framer-motion';
 import { askQuestion, createSession } from '@/lib/api';
 import { Toaster, toast } from 'sonner';
+import { LineTypingEffect } from '@/components/ui/line-typing-effect';
 
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -61,40 +62,142 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col h-screen w-full max-w-7xl mx-auto px-4 relative">
+    <div className="flex flex-col w-full max-w-7xl mx-auto px-2 sm:px-4 relative">
       {/* Add Sonner Toaster component */}
       <Toaster position="top-center" richColors theme='dark' />
 
       {messages.length > 0 ? (
         <>
-          <div className="flex-1 overflow-y-auto pb-24">
-            <div className="w-full space-y-4">
+          <div className="flex-1 overflow-y-auto scrollbar-hide pb-24 pt-2 sm:pt-4">
+            <div className="w-full space-y-2 sm:space-y-4">
               <UserMessageArea messages={messages} />
             </div>
           </div>
-          <div className="fixed bottom-0 left-0 right-0 p-4 bg-black/20 backdrop-blur-sm">
+          <div className="fixed bottom-0 left-0 right-0 p-2 sm:p-4 bg-black/20 backdrop-blur-sm border-t border-gray-800">
             <div className="max-w-7xl mx-auto text-center">
               <UserInputBar onSubmit={handleSubmit} isLoading={isLoading} />
-              <p className='text-sm text-amber-500 pt-2'>JAC BOT can make mistakes. Please double-check responses and refer to website <a className='text-cyan-600 cursor-pointer hover:text-cyan-800'>https://jacchd.admissions.nic.in/</a></p>
             </div>
           </div>
         </>
       ) : (
-        <div className="flex flex-col items-center justify-center h-full space-y-8">
+        <div className="flex flex-col items-center justify-center min-h-screen h-full py-2 sm:py-4 space-y-2 sm:space-y-3 px-2 relative overflow-auto">
+          {/* Background gradient effect */}
+          <div className="absolute inset-0 bg-gradient-to-b from-amber-900/10 via-transparent to-transparent opacity-30 pointer-events-none" />
+
+          {/* Main welcome message with animation */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-7xl text-white font-light text-center leading-tight"
+            className="text-2xl sm:text-4xl md:text-5xl text-white font-light text-center leading-tight max-w-4xl mt-2"
           >
-            How may I help you today?
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-amber-300">Welcome to JAC Bot</span>
           </motion.div>
-          <div className='h-20'>
 
-          </div>
-          <div className="w-full">
-            <UserInputBar onSubmit={handleSubmit} isLoading={isLoading} />
-          </div>
+          {/* Animated subtitle with typing effect */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="text-lg sm:text-xl text-gray-300 text-center max-w-2xl"
+          >
+            <LineTypingEffect
+              content="How may I help you today?"
+              speed={50}
+              initialDelay={500}
+              className="text-center"
+            />
+          </motion.div>
+
+          {/* Bot avatar */}
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5, type: "spring" }}
+            className="relative"
+          >
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-amber-500/50 shadow-lg shadow-amber-500/20">
+              <img
+                src="/bot-avatar.png"
+                alt="JAC Bot"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </motion.div>
+
+          {/* Feature highlights */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 max-w-4xl w-full"
+          >
+            {[
+              { icon: "🎓", title: "Admission Guidance", description: "Get information about JAC admission process" },
+              { icon: "📝", title: "Document Help", description: "Learn about required documents and deadlines" },
+              { icon: "🏫", title: "College Information", description: "Explore colleges and courses available" }
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 + (index * 0.1), duration: 0.3 }}
+                className="bg-gray-800/40 backdrop-blur-sm p-2 sm:p-3 rounded-xl border border-gray-700 hover:border-amber-500/50 transition-all duration-300 hover:shadow-md hover:shadow-amber-500/10"
+              >
+                <div className="text-xl mb-1">{feature.icon}</div>
+                <h3 className="text-amber-400 font-medium text-sm mb-0.5">{feature.title}</h3>
+                <p className="text-gray-400 text-xs">{feature.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Sample questions */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+            className="max-w-2xl w-full"
+          >
+            <h3 className="text-center text-gray-300 text-sm mb-2">Try asking:</h3>
+            <div className="flex flex-wrap justify-center gap-1.5">
+              {[
+                "What is the JAC admission process?",
+                "Which colleges are part of JAC?",
+                "What documents are required for admission?"
+              ].map((question, index) => (
+                <motion.button
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.8 + (index * 0.1), duration: 0.3 }}
+                  onClick={() => handleSubmit(question)}
+                  className="bg-gray-800/60 hover:bg-gray-700/80 text-gray-300 hover:text-white px-2 py-1.5 rounded-full text-xs sm:text-sm transition-all duration-200 border border-gray-700 hover:border-amber-500/50"
+                >
+                  {question}
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Input bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.5 }}
+            className="w-full mx-auto mt-2"
+          >
+            <UserInputBar onSubmit={handleSubmit} isLoading={isLoading} showNote={false} />
+          </motion.div>
+
+          {/* Disclaimer */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.1, duration: 0.5 }}
+            className="text-sm text-gray-400 text-center max-w-3xl mx-auto px-2 w-full mt-1"
+          >
+            This bot provides information about Joint Admission Committee (JAC) Chandigarh. For official information, please visit <a href="https://jacchd.admissions.nic.in/" target="_blank" rel="noopener noreferrer" className="text-amber-500 hover:text-amber-400 underline">jacchd.admissions.nic.in</a>
+          </motion.div>
         </div>
       )}
     </div>

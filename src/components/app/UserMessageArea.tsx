@@ -58,10 +58,10 @@ function MessageActions({ content, onRegenerate }: MessageActionsProps) {
                 title="Copy message"
             >
                 {
-                    !isCopied ?<Copy className="w-5 h-5" />
-                    :<Check className="w-5 h-5" />
+                    !isCopied ? <Copy className="w-5 h-5" />
+                        : <Check className="w-5 h-5" />
                 }
-                
+
             </Button>
             {onRegenerate && (
                 <Button
@@ -258,7 +258,7 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                     className={cn("h-[85vh] scrollbar-hide", className)}
                     ref={scrollAreaRef}
                 >
-                    <div className="flex flex-col gap-6 p-6">
+                    <div className="flex flex-col gap-4 sm:gap-6 p-2 sm:p-4 md:p-6">
                         {messages.map((message) => {
                             const trimmedContent = message.role === "user" ? trimMessage(message.content) : message.content;
 
@@ -266,25 +266,25 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                                 <div
                                     key={message.id}
                                     className={cn(
-                                        "flex items-start gap-4 rounded-3xl p-6 w-full max-w-[95%]",
+                                        "flex items-start gap-2 sm:gap-4 rounded-xl sm:rounded-3xl p-3 sm:p-4 md:p-6 w-full max-w-[98%] sm:max-w-[95%] md:max-w-[90%] mx-auto transition-all duration-200",
                                         message.role === "user" ? "bg-muted" : "bg-black"
                                     )}
                                 >
-                                    <Avatar className="h-8 w-8 shrink-0 border border-gray-200">
+                                    <Avatar className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 shrink-0 border border-gray-200">
                                         {message.role === "assistant" ? (
                                             <>
-                                                <AvatarImage src="/bot-avatar.png" alt="AI Assistant" />
+                                                <AvatarImage src="/bot-avatar.png" alt="AI Assistant" className="object-cover" />
                                                 <AvatarFallback>AI</AvatarFallback>
                                             </>
                                         ) : (
                                             <>
-                                                <AvatarImage src="/user-avatar.png" alt="User" />
+                                                <AvatarImage src="/user-avatar.png" alt="User" className="object-cover" />
                                                 <AvatarFallback>U</AvatarFallback>
                                             </>
                                         )}
                                     </Avatar>
                                     <div className="flex-1 overflow-hidden">
-                                        <div className="text-sm font-medium mb-1">
+                                        <div className="text-xs sm:text-sm font-medium mb-1 text-gray-200">
                                             {message.role === "user" ? "You" : "JAC BOT"}
                                         </div>
                                         <div className={cn(
