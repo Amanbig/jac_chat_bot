@@ -33,7 +33,7 @@ A conversational AI assistant designed to provide guidance about Joint Admission
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/Amanbig/jac_chat_bot
 cd jac_chat_bot
 
 # Install dependencies
