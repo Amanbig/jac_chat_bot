@@ -270,10 +270,10 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                                         message.role === "user" ? "bg-muted" : "bg-black"
                                     )}
                                 >
-                                    <Avatar className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 shrink-0 border border-gray-200">
+                                    <Avatar className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 shrink-0">
                                         {message.role === "assistant" ? (
                                             <>
-                                                <AvatarImage src="/bot-avatar.png" alt="AI Assistant" className="object-cover" />
+                                                <AvatarImage src="/main_avatar.png" alt="AI Assistant" className="object-cover" />
                                                 <AvatarFallback>AI</AvatarFallback>
                                             </>
                                         ) : (
