@@ -63,7 +63,7 @@ function MessageActions({ content, onRegenerate }: MessageActionsProps) {
                 }
 
             </Button>
-            {onRegenerate && (
+            {/* {onRegenerate && (
                 <Button
                     variant="ghost"
                     size="icon"
@@ -76,7 +76,7 @@ function MessageActions({ content, onRegenerate }: MessageActionsProps) {
                         Regenerate
                     </span>
                 </Button>
-            )}
+            )} */}
         </div>
     );
 }
