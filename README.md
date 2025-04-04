@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JAC Chat Bot
 
-## Getting Started
+A conversational AI assistant designed to provide guidance about Joint Admission Committee (JAC) admissions process, built with Next.js and modern web technologies.
 
-First, run the development server:
+![JAC Chat Bot](./public/bot-avatar.png)
+
+## 🌟 Features
+
+- **Interactive Chat Interface**: Engage in natural conversations about JAC admissions
+- **PDF Knowledge Base**: Answers questions based on official JAC brochures and documents
+- **Source Citations**: Provides references to source documents with page numbers
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Modern UI**: Clean, intuitive interface with animations and typing effects
+
+## 🛠️ Technologies Used
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **UI Components**: Radix UI, Tailwind CSS
+- **Animations**: Framer Motion
+- **Markdown Rendering**: React Markdown with remark-gfm
+- **Notifications**: Sonner toast notifications
+- **API Communication**: Fetch API with local backend server
+
+## 📋 Prerequisites
+
+- Node.js 18.x or higher
+- npm or yarn package manager
+- Backend server running on http://localhost:8000 (not included in this repository)
+
+## 🚀 Getting Started
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone <repository-url>
+cd jac_chat_bot
+
+# Install dependencies
+npm install
+```
+
+### Development
+
+```bash
+# Run the development server with Turbo
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Build the application
+npm run build
 
-## Learn More
+# Start the production server
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📝 Usage
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Open the application in your browser
+2. Type your question about JAC admissions in the input field
+3. Press Enter or click the send button
+4. View the bot's response with relevant information and sources
+5. Continue the conversation as needed
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📚 Project Structure
 
-## Deploy on Vercel
+```
+├── public/            # Static assets and PDF documents
+│   ├── pdfs/          # JAC brochures and information documents
+│   └── ...            # Other static assets
+├── src/
+│   ├── app/           # Next.js app directory
+│   ├── components/     # React components
+│   │   ├── app/       # Application-specific components
+│   │   └── ui/        # Reusable UI components
+│   ├── lib/           # Utility functions and API clients
+│   └── types/         # TypeScript type definitions
+└── ...                # Configuration files
+```
+## 🤝 Contributing
+Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) for details on how to submit pull requests.  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[MIT](LICENSE)
+
