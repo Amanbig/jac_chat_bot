@@ -318,12 +318,6 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                                                     <div className="whitespace-pre-wrap break-words">
                                                         <ReactMarkdown components={{
                                                             pre: ({ children }) => <pre className="overflow-x-auto max-w-full p-4 my-4 bg-gray-900 rounded-lg border border-gray-700">{children}</pre>,
-                                                            code: ({ inline, className, children }) => {
-                                                                if (inline) {
-                                                                    return <code className="text-blue-400 bg-black/30 px-1 py-0.5 rounded">{children}</code>;
-                                                                }
-                                                                return <code className="block text-blue-400 bg-black/30 p-1 rounded">{children}</code>;
-                                                            },
                                                             a: ({ children, href }) => {
                                                                 if (typeof children === 'string' && children.startsWith('[') && children.endsWith(']')) {
                                                                     const sourceName = children.slice(1, -1);
