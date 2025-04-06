@@ -305,7 +305,7 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                                                             className="prose-code:text-blue-400"
                                                         />
                                                     </div>
-                                                    <p className="text-sm p-2">Please refer to the following source for more information:{'   '}
+                                                    {/* <p className="text-sm p-2">Please refer to the following source for more information:{'   '}
                                                         <a
                                                             href={`/pdfs/jac_brochure_2025.pdf`}
                                                             className="font-medium text-blue-400 underline transition-colors duration-150 hover:text-blue-300"
@@ -315,7 +315,7 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                                                         >
                                                             jac_brochure_2025
                                                         </a>
-                                                    </p>
+                                                    </p> */}
                                                     <p className="text-sm bg-amber-50 border border-amber-200 rounded-md p-3 my-4 text-amber-700 mx-auto">
                                                         <span className="font-medium">Disclaimer:</span> Information displayed may not reflect the most current data. For official and up-to-date information, please visit the
                                                         <a
