@@ -72,7 +72,7 @@ const UserInputBar: React.FC<UserInputBarProps> = ({ onSubmit, isLoading, showNo
             onKeyDown={handleKeyDown}
             placeholder="Type your message..."
             rows={1}
-            className="flex-1 p-2 sm:p-3 text-sm sm:text-base rounded focus:outline-none shadow-inner min-h-[40px] max-h-[200px] overflow-y-auto resize-none bg-gray-800/50 text-gray-100 placeholder-gray-400 transition-colors duration-200"
+            className="flex-1 p-2 sm:p-3 text-sm sm:text-base rounded focus:outline-none shadow-inner min-h-[40px] max-h-[200px] overflow-y-auto resize-none bg-transparent text-gray-100 placeholder-gray-400 transition-colors duration-200"
           />
           <Button
             type="submit"
