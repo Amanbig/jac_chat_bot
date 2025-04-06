@@ -305,9 +305,21 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                                                             className="prose-code:text-blue-400"
                                                         />
                                                     </div>
-                                                    {message.sources && message.sources.length > 0 && (
-                                                        <Sources sources={message.sources} />
-                                                    )}
+                                                    <p className="text-sm bg-amber-50 border border-amber-200 rounded-md p-3 my-4 text-amber-700 mx-auto">
+                                                        <span className="font-medium">Disclaimer:</span> Information displayed may not reflect the most current data. For official and up-to-date information, please visit the
+                                                        <a
+                                                            href="https://jacchd.admissions.nic.in/"
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="text-blue-600 hover:text-blue-800 underline mx-1 font-medium"
+                                                            >
+                                                            Joint Admission Committee Chandigarh portal
+                                                        </a>
+                                                        directly.
+                                                    </p>
+                                                            {message.sources && message.sources.length > 0 && (
+                                                                <Sources sources={message.sources} />
+                                                            )}
                                                     <MessageActions
                                                         content={message.content}
                                                         onRegenerate={message.role === "assistant" ? () => { } : undefined}
