@@ -53,7 +53,7 @@ function MessageActions({ content, onRegenerate }: MessageActionsProps) {
             <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 hover:bg-gray-700 transition-colors duration-200 relative group cursor-pointer"
+                className="h-8 w-8 hover:bg-muted transition-colors duration-200 relative group cursor-pointer"
                 onClick={handleCopy}
                 title="Copy message"
             >
@@ -67,7 +67,7 @@ function MessageActions({ content, onRegenerate }: MessageActionsProps) {
                 <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 hover:bg-gray-700 transition-colors duration-200 relative group cursor-pointer"
+                    className="h-8 w-8 hover:bg-muted transition-colors duration-200 relative group cursor-pointer"
                     onClick={onRegenerate}
                     title="Regenerate response"
                 >
@@ -104,18 +104,18 @@ function Sources({ sources }: SourcesProps) {
         <div className="mt-4">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex w-full items-center justify-between rounded-lg bg-gray-800/50 p-3 text-sm font-medium text-gray-200 transition-colors duration-200 hover:bg-gray-800/70"
+                className="flex w-full items-center justify-between rounded-lg bg-secondary/50 p-3 text-sm font-medium text-foreground transition-colors duration-200 hover:bg-secondary/70"
             >
                 <div className="flex items-center gap-2">
                     <span>Sources</span>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-muted-foreground">
                         ({filteredSources.length} found)
                     </span>
                 </div>
                 <motion.span
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    className="text-gray-400"
+                    className="text-muted-foreground"
                 >
                     ▼
                 </motion.span>
@@ -136,13 +136,13 @@ function Sources({ sources }: SourcesProps) {
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.2, delay: index * 0.05 }}
-                                    className="rounded-lg border border-gray-700 bg-gray-800/50 p-3 text-sm transition-colors duration-200 hover:bg-gray-800/70"
+                                    className="rounded-lg border border-border bg-secondary/50 p-3 text-sm transition-colors duration-200 hover:bg-secondary/70"
                                 >
                                     <div className="mb-2 flex items-center justify-between">
                                         <div className="flex items-center gap-2">
                                             <a
                                                 href={`/pdfs/${source.source}${source.source.includes('.') ? '' : '.pdf'}${source.page ? '#page=' + source.page : ''}`}
-                                                className="font-medium text-blue-400 underline transition-colors duration-150 hover:text-blue-300"
+                                                className="font-medium text-primary underline transition-colors duration-150 hover:text-primary/80"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 title={`Open ${source.source}`}
@@ -150,21 +150,21 @@ function Sources({ sources }: SourcesProps) {
                                                 {source.source}
                                             </a>
                                             {source.page && (
-                                                <span className="rounded bg-gray-700/50 px-2 py-0.5 text-xs text-gray-400">
+                                                <span className="rounded bg-secondary px-2 py-0.5 text-xs text-muted-foreground">
                                                     Page {source.page}
                                                 </span>
                                             )}
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-xs text-gray-400">{source.type}</span>
+                                            <span className="text-xs text-muted-foreground">{source.type}</span>
                                             <span
                                                 className={cn(
                                                     'rounded px-2 py-0.5 text-xs font-medium',
                                                     source.relevance > 0.7
-                                                        ? 'bg-green-500/20 text-green-400'
+                                                        ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400'
                                                         : source.relevance > 0.4
-                                                            ? 'bg-yellow-500/20 text-yellow-400'
-                                                            : 'bg-gray-500/20 text-gray-400'
+                                                            ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400'
+                                                            : 'bg-secondary text-muted-foreground'
                                                 )}
                                                 title="Source relevance score"
                                             >
@@ -173,7 +173,7 @@ function Sources({ sources }: SourcesProps) {
                                         </div>
                                     </div>
                                     {source.content_preview && (
-                                        <div className="mt-2 border-l-2 border-gray-700 pl-3 text-xs leading-relaxed text-gray-300">
+                                        <div className="mt-2 border-l-2 border-border pl-3 text-xs leading-relaxed text-muted-foreground">
                                             {source.content_preview}
                                         </div>
                                     )}
@@ -267,7 +267,7 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                                     key={message.id}
                                     className={cn(
                                         "flex items-start gap-2 sm:gap-4 rounded-xl sm:rounded-3xl p-3 sm:p-4 md:p-6 w-full max-w-[98%] sm:max-w-[95%] md:max-w-[90%] mx-auto transition-all duration-200",
-                                        message.role === "user" ? "bg-muted" : "bg-black"
+                                        message.role === "user" ? "bg-muted" : "bg-background border border-border"
                                     )}
                                 >
                                     <Avatar className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 shrink-0">
@@ -284,16 +284,15 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                                         )}
                                     </Avatar>
                                     <div className="flex-1 overflow-hidden">
-                                        <div className="text-xs sm:text-sm font-medium mb-1 text-gray-200">
+                                        <div className="text-xs sm:text-sm font-medium mb-1 text-foreground">
                                             {message.role === "user" ? "You" : "JAC BOT"}
                                         </div>
                                         <div className={cn(
-                                            "prose prose-sm max-w-none",
-                                            message.role === "user" ? "prose-invert" : "dark:prose-invert"
+                                            "prose prose-sm max-w-none prose-invert dark:prose-invert"
                                         )}>
                                             {message.role === "assistant" ? (
                                                 <>
-                                                    <div className="prose-pre:bg-black/80 prose-pre:border prose-pre:border-gray-800">
+                                                    <div className="prose-pre:bg-muted/80 prose-pre:border prose-pre:border-border">
                                                         <LineTypingEffect
                                                             content={message.content || ''}
                                                             speed={300}
@@ -316,21 +315,21 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                                                             jac_brochure_2025
                                                         </a>
                                                     </p> */}
-                                                    <p className="text-sm bg-amber-50 border border-amber-200 rounded-md p-3 my-4 text-amber-700 mx-auto">
+                                                    <p className="text-sm bg-muted border border-border rounded-md p-3 my-4 text-muted-foreground mx-auto">
                                                         <span className="font-medium">Disclaimer:</span> Information displayed may not reflect the most current data. For official and up-to-date information, please visit the
                                                         <a
                                                             href="https://jacchd.admissions.nic.in/"
                                                             target="_blank"
                                                             rel="noopener noreferrer"
                                                             className="text-blue-600 hover:text-blue-800 underline mx-1 font-medium"
-                                                            >
+                                                        >
                                                             Joint Admission Committee Chandigarh portal
                                                         </a>
                                                         directly.
                                                     </p>
-                                                            {message.sources && message.sources.length > 0 && (
-                                                                <Sources sources={message.sources} />
-                                                            )}
+                                                    {message.sources && message.sources.length > 0 && (
+                                                        <Sources sources={message.sources} />
+                                                    )}
                                                     <MessageActions
                                                         content={message.content}
                                                         onRegenerate={message.role === "assistant" ? () => { } : undefined}

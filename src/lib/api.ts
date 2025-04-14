@@ -18,7 +18,8 @@ interface AskResponse {
 
 export async function createSession(): Promise<string> {
     try {
-        const response = await fetch('http://localhost:8000/create_session', {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+        const response = await fetch(`${API_URL}/create_session`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,7 +40,8 @@ export async function createSession(): Promise<string> {
 
 export async function askQuestion(sessionId: string, question: string): Promise<AskResponse> {
     try {
-        const response = await fetch('http://localhost:8000/ask', {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+        const response = await fetch(`${API_URL}/ask`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

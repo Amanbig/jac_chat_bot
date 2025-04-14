@@ -64,7 +64,7 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full max-w-7xl mx-auto px-2 sm:px-4 relative">
       {/* Add Sonner Toaster component */}
-      <Toaster position="top-center" richColors theme='dark' />
+      <Toaster position="top-center" richColors />
 
       {messages.length > 0 ? (
         <>
@@ -73,7 +73,7 @@ export default function Home() {
               <UserMessageArea messages={messages} />
             </div>
           </div>
-          <div className="fixed bottom-0 left-0 right-0 p-2 sm:p-4 bg-black/20 backdrop-blur-sm border-t border-gray-800">
+          <div className="fixed bottom-0 left-0 right-0 p-2 sm:p-4 bg-background/80 backdrop-blur-sm border-t border-border">
             <div className="max-w-7xl mx-auto text-center">
               <UserInputBar onSubmit={handleSubmit} isLoading={isLoading} />
             </div>
@@ -89,7 +89,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-2xl sm:text-4xl md:text-5xl text-white font-light text-center leading-tight max-w-4xl mt-2"
+            className="text-2xl sm:text-4xl md:text-5xl text-foreground font-light text-center leading-tight max-w-4xl mt-2"
           >
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-amber-300">Welcome to JAC Bot</span>
           </motion.div>
@@ -99,7 +99,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-lg sm:text-xl text-gray-300 text-center max-w-2xl"
+            className="text-lg sm:text-xl text-muted-foreground text-center max-w-2xl"
           >
             <LineTypingEffect
               content="How may I help you today?"
@@ -142,11 +142,11 @@ export default function Home() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 + (index * 0.1), duration: 0.3 }}
-                className="bg-gray-800/40 backdrop-blur-sm p-2 sm:p-3 rounded-xl border border-gray-700 hover:border-amber-500/50 transition-all duration-300 hover:shadow-md hover:shadow-amber-500/10"
+                className="bg-secondary/40 backdrop-blur-sm p-2 sm:p-3 rounded-xl border border-border hover:border-amber-500/50 transition-all duration-300 hover:shadow-md hover:shadow-amber-500/10"
               >
                 <div className="text-xl mb-1">{feature.icon}</div>
                 <h3 className="text-amber-400 font-medium text-sm mb-0.5">{feature.title}</h3>
-                <p className="text-gray-400 text-xs">{feature.description}</p>
+                <p className="text-muted-foreground text-xs">{feature.description}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -158,7 +158,7 @@ export default function Home() {
             transition={{ delay: 0.7, duration: 0.5 }}
             className="max-w-2xl w-full"
           >
-            <h3 className="text-center text-gray-300 text-sm mb-2">Try asking:</h3>
+            <h3 className="text-center text-secondary-foreground text-sm mb-2">Try asking:</h3>
             <div className="flex flex-wrap justify-center gap-1.5">
               {[
                 "What is the JAC admission process?",
@@ -171,7 +171,7 @@ export default function Home() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.8 + (index * 0.1), duration: 0.3 }}
                   onClick={() => handleSubmit(question)}
-                  className="bg-gray-800/60 hover:bg-gray-700/80 text-gray-300 hover:text-white px-2 py-1.5 rounded-full text-xs sm:text-sm transition-all duration-200 border border-gray-700 hover:border-amber-500/50"
+                  className="bg-secondary/60 hover:bg-secondary/80 text-secondary-foreground hover:text-foreground px-2 py-1.5 rounded-full text-xs sm:text-sm transition-all duration-200 border border-border hover:border-amber-500/50"
                 >
                   {question}
                 </motion.button>
@@ -194,7 +194,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.1, duration: 0.5 }}
-            className="text-sm text-gray-400 text-center max-w-3xl mx-auto px-2 w-full mt-1"
+            className="text-sm text-muted-foreground text-center max-w-3xl mx-auto px-2 w-full mt-1"
           >
             This bot provides information about Joint Admission Committee (JAC) Chandigarh. For official information, please visit <a href="https://jacchd.admissions.nic.in/" target="_blank" rel="noopener noreferrer" className="text-amber-500 hover:text-amber-400 underline">jacchd.admissions.nic.in</a>
           </motion.div>
