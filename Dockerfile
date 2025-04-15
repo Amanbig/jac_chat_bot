@@ -23,6 +23,7 @@ WORKDIR /app
 # Set environment variables
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV API_URL=http://localhost:8000
 
 # Create a non-root user
 RUN addgroup --system --gid 1001 nodejs
