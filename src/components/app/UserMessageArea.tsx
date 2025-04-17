@@ -35,51 +35,51 @@ interface SourcesProps {
     sources?: Source[];
 }
 
-function MessageActions({ content, onRegenerate }: MessageActionsProps) {
-    const [isCopied, setIsCopied] = useState(false);
+// function MessageActions({ content, onRegenerate }: MessageActionsProps) {
+//     const [isCopied, setIsCopied] = useState(false);
 
-    const handleCopy = async () => {
-        try {
-            await navigator.clipboard.writeText(content);
-            setIsCopied(true);
-            setTimeout(() => setIsCopied(false), 2000);
-        } catch (err) {
-            console.error('Failed to copy text:', err);
-        }
-    };
+//     const handleCopy = async () => {
+//         try {
+//             await navigator.clipboard.writeText(content);
+//             setIsCopied(true);
+//             setTimeout(() => setIsCopied(false), 2000);
+//         } catch (err) {
+//             console.error('Failed to copy text:', err);
+//         }
+//     };
 
-    return (
-        <div className="flex gap-2 m-2">
-            <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 hover:bg-muted transition-colors duration-200 relative group cursor-pointer"
-                onClick={handleCopy}
-                title="Copy message"
-            >
-                {
-                    !isCopied ? <Copy className="w-5 h-5" />
-                        : <Check className="w-5 h-5" />
-                }
+//     return (
+//         <div className="flex gap-2 m-2">
+//             <Button
+//                 variant="ghost"
+//                 size="icon"
+//                 className="h-8 w-8 hover:bg-muted transition-colors duration-200 relative group cursor-pointer"
+//                 onClick={handleCopy}
+//                 title="Copy message"
+//             >
+//                 {
+//                     !isCopied ? <Copy className="w-5 h-5" />
+//                         : <Check className="w-5 h-5" />
+//                 }
 
-            </Button>
-            {/* {onRegenerate && (
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 hover:bg-muted transition-colors duration-200 relative group cursor-pointer"
-                    onClick={onRegenerate}
-                    title="Regenerate response"
-                >
-                    <RotateCw className="h-4 w-4" />
-                    <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                        Regenerate
-                    </span>
-                </Button>
-            )} */}
-        </div>
-    );
-}
+//             </Button>
+//             {/* {onRegenerate && (
+//                 <Button
+//                     variant="ghost"
+//                     size="icon"
+//                     className="h-8 w-8 hover:bg-muted transition-colors duration-200 relative group cursor-pointer"
+//                     onClick={onRegenerate}
+//                     title="Regenerate response"
+//                 >
+//                     <RotateCw className="h-4 w-4" />
+//                     <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+//                         Regenerate
+//                     </span>
+//                 </Button>
+//             )} */}
+//         </div>
+//     );
+// }
 
 
 function Sources({ sources }: SourcesProps) {
@@ -98,7 +98,8 @@ function Sources({ sources }: SourcesProps) {
         return acc;
     }, []);
 
-    const filteredSources = uniqueSources.filter((source) => source.relevance >= 0.5);
+    // const filteredSources = uniqueSources.filter((source) => source.relevance >= 0.5);
+    const filteredSources = uniqueSources;
 
     return (
         <div className="mt-4">
@@ -190,9 +191,10 @@ function Sources({ sources }: SourcesProps) {
 interface UserMessageAreaProps {
     messages: Message[];
     className?: string;
+    onTypingComplete?: () => void;
 }
 
-export default function UserMessageArea({ messages, className }: UserMessageAreaProps) {
+export default function UserMessageArea({ messages, className, onTypingComplete }: UserMessageAreaProps) {
     const scrollAreaRef = useRef<HTMLDivElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [isUserScrolling, setIsUserScrolling] = useState(false);
@@ -302,9 +304,10 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                                                             cursor={true}
                                                             cursorChar="▋"
                                                             className="prose-code:text-blue-400"
+                                                            onComplete={onTypingComplete}
                                                         />
                                                     </div>
-                                                    {/* <p className="text-sm p-2">Please refer to the following source for more information:{'   '}
+                                                    <p className="text-sm p-2">Please refer to the following source for more information:{'   '}
                                                         <a
                                                             href={`/pdfs/jac_brochure_2025.pdf`}
                                                             className="font-medium text-blue-400 underline transition-colors duration-150 hover:text-blue-300"
@@ -314,7 +317,7 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                                                         >
                                                             jac_brochure_2025
                                                         </a>
-                                                    </p> */}
+                                                    </p>
                                                     <p className="text-sm bg-muted border border-border rounded-md p-3 my-4 text-muted-foreground mx-auto">
                                                         <span className="font-medium">Disclaimer:</span> Information displayed may not reflect the most current data. For official and up-to-date information, please visit the
                                                         <a
@@ -330,10 +333,10 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                                                     {message.sources && message.sources.length > 0 && (
                                                         <Sources sources={message.sources} />
                                                     )}
-                                                    <MessageActions
+                                                    {/* <MessageActions
                                                         content={message.content}
                                                         onRegenerate={message.role === "assistant" ? () => { } : undefined}
-                                                    />
+                                                    /> */}
                                                 </>
                                             ) : (
                                                 <>
@@ -369,7 +372,7 @@ export default function UserMessageArea({ messages, className }: UserMessageArea
                                                             {trimmedContent}
                                                         </ReactMarkdown>
                                                     </div>
-                                                    <MessageActions content={message.content} />
+                                                    {/* <MessageActions content={message.content} /> */}
                                                 </>
                                             )}
                                         </div>

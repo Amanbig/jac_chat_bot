@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -34,6 +34,10 @@ export function LineTypingEffect({
     const [lines, setLines] = useState<string[]>([]);
     const [visibleLines, setVisibleLines] = useState<number>(0);
     const [isComplete, setIsComplete] = useState(false);
+    // Add a ref to track if the animation has been completed for the current content
+    const animationCompletedRef = useRef(false);
+    // Add a ref to store the previous content to detect actual changes
+    const prevContentRef = useRef(content);
 
     const splitLines = useCallback((text: string) => {
         return text
@@ -51,14 +55,27 @@ export function LineTypingEffect({
         let intervalId: NodeJS.Timeout;
 
         const startAnimation = async () => {
+            // If content is empty, complete immediately
             if (!content) {
                 setLines([]);
                 setVisibleLines(0);
                 setIsComplete(true);
+                animationCompletedRef.current = true;
                 onComplete?.();
                 return;
             }
 
+            // Check if content has actually changed
+            const contentChanged = prevContentRef.current !== content;
+            prevContentRef.current = content;
+
+            // If content hasn't changed and animation was already completed, don't restart
+            if (!contentChanged && animationCompletedRef.current) {
+                return;
+            }
+
+            // Reset animation state
+            animationCompletedRef.current = false;
             setLines(processedLines);
             setVisibleLines(0);
             setIsComplete(false);
@@ -76,6 +93,7 @@ export function LineTypingEffect({
                     }
                     clearInterval(intervalId);
                     setIsComplete(true);
+                    animationCompletedRef.current = true;
                     onComplete?.();
                     return prev;
                 });

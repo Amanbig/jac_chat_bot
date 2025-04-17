@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import UserInputBar from "@/components/app/userInputBar";
 import UserMessageArea from "@/components/app/UserMessageArea";
 import { Message } from '@/types/message';
@@ -13,6 +13,7 @@ export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string>('');
+  const [typingComplete, setTypingComplete] = useState(true);
 
   useEffect(() => {
     const initSession = async () => {
@@ -35,6 +36,7 @@ export default function Home() {
     }
 
     setIsLoading(true);
+    setTypingComplete(false);
     const newMessage = {
       id: `msg_${messages.length + 1}`,
       role: "user" as const,
@@ -56,7 +58,7 @@ export default function Home() {
     } catch (error) {
       console.error('Error getting response:', error);
       toast.error('Failed to get a response. Please try again.');
-    } finally {
+      setTypingComplete(true); // Reset typing state on error
       setIsLoading(false);
     }
   };
@@ -70,7 +72,14 @@ export default function Home() {
         <>
           <div className="flex-1 overflow-y-auto scrollbar-hide pb-24 pt-2 sm:pt-4">
             <div className="w-full space-y-2 sm:space-y-4">
-              <UserMessageArea messages={messages} />
+              <UserMessageArea
+                messages={messages}
+                onTypingComplete={() => {
+                  setTypingComplete(true);
+                  if (!isLoading) return; // Avoid setting loading state if already false
+                  setIsLoading(false);
+                }}
+              />
             </div>
           </div>
           <div className="fixed bottom-0 left-0 right-0 p-2 sm:p-4 bg-background/80 backdrop-blur-sm border-t border-border">
