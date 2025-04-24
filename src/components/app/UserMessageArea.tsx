@@ -142,7 +142,11 @@ function Sources({ sources }: SourcesProps) {
                                     <div className="mb-2 flex items-center justify-between">
                                         <div className="flex items-center gap-2">
                                             <a
-                                                href={`/pdfs/${source.source}${source.source.includes('.') ? '' : '.pdf'}${source.page ? '#page=' + source.page : ''}`}
+                                                href={
+                                                    source.source.startsWith('http') || source.source.startsWith('https')
+                                                        ? `${source.source}`
+                                                        : `/pdfs/${source.source}${source.source.includes('.') ? '' : '.pdf'}${source.page ? '#page=' + source.page : ''}`
+                                                }
                                                 className="font-medium text-primary underline transition-colors duration-150 hover:text-primary/80"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
