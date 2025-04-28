@@ -1,13 +1,13 @@
-# JAC Chat Bot
+# NDMC Chat Bot
 
-A conversational AI assistant designed to provide guidance about Joint Admission Committee (JAC) admissions process, built with Next.js and modern web technologies.
+A conversational AI assistant designed to provide guidance about New Delhi Municipal Council (NDMC), built with Next.js and modern web technologies.
 
-![JAC Chat Bot](./public/bot-avatar.png)
+![NDMC Chat Bot](./public/bot-avatar.png)
 
 ## 🌟 Features
 
-- **Interactive Chat Interface**: Engage in natural conversations about JAC admissions
-- **PDF Knowledge Base**: Answers questions based on official JAC brochures and documents
+- **Interactive Chat Interface**: Engage in natural conversations about NDMC
+- **PDF Knowledge Base**: Answers questions based on official NDMC brochures and documents
 - **Source Citations**: Provides references to source documents with page numbers
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 - **Modern UI**: Clean, intuitive interface with animations and typing effects
@@ -62,7 +62,7 @@ npm start
 ## 📝 Usage
 
 1. Open the application in your browser
-2. Type your question about JAC admissions in the input field
+2. Type your question about NDMC  in the input field
 3. Press Enter or click the send button
 4. View the bot's response with relevant information and sources
 5. Continue the conversation as needed
@@ -71,7 +71,7 @@ npm start
 
 ```
 ├── public/            # Static assets and PDF documents
-│   ├── pdfs/          # JAC brochures and information documents
+│   ├── pdfs/          # NDMC brochures and information documents
 │   └── ...            # Other static assets
 ├── src/
 │   ├── app/           # Next.js app directory

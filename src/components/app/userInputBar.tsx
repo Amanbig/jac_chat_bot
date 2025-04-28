@@ -87,14 +87,14 @@ const UserInputBar: React.FC<UserInputBarProps> = ({ onSubmit, isLoading, showNo
       </div>
       {showNote && (
         <p className="text-xs sm:text-sm text-muted-foreground pt-2 max-w-[90%] mx-auto">
-          JAC BOT can make mistakes. Please double-check responses and refer to website{" "}
+          NDMC BOT can make mistakes. Please double-check responses and refer to website{" "}
           <a
-            href="https://jacchd.admissions.nic.in/"
+            href="https://www.ndmc.gov.in/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-amber-500 hover:text-amber-600 underline"
           >
-            https://jacchd.admissions.nic.in/
+            https://www.ndmc.gov.in/
           </a>
         </p>
       )}

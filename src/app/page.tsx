@@ -100,7 +100,7 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="text-2xl sm:text-4xl md:text-5xl text-foreground font-light text-center leading-tight max-w-4xl mt-2"
           >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-amber-300">Welcome to JAC Bot</span>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-amber-300">Welcome to NDMC Bot</span>
           </motion.div>
 
           {/* Animated subtitle with typing effect */}
@@ -128,7 +128,7 @@ export default function Home() {
             <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-amber-500/50 shadow-lg shadow-amber-500/20">
               <img
                 src="/main_avatar.png"
-                alt="JAC Bot"
+                alt="NDMC Bot"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -142,9 +142,9 @@ export default function Home() {
             className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 max-w-4xl w-full"
           >
             {[
-              { icon: "🎓", title: "Admission Guidance", description: "Get information about JAC admission process" },
-              { icon: "📝", title: "Document Help", description: "Learn about required documents and deadlines" },
-              { icon: "🏫", title: "College Information", description: "Explore colleges and courses available" }
+                { icon: "🎓", title: "Admission Guidance", description: "Get information about NDMC school admissions" },
+                { icon: "📝", title: "Document Help", description: "Learn about documents and deadlines for NDMC admissions" },
+                { icon: "🏫", title: "School Information", description: "Explore NDMC schools and available classes" }
             ].map((feature, index) => (
               <motion.div
                 key={index}
@@ -170,9 +170,9 @@ export default function Home() {
             <h3 className="text-center text-secondary-foreground text-sm mb-2">Try asking:</h3>
             <div className="flex flex-wrap justify-center gap-1.5">
               {[
-                "What is the JAC admission process?",
-                "Which colleges are part of JAC?",
-                "What documents are required for admission?"
+                  "What is the NDMC school admission process?",
+                  "Which schools are managed by NDMC?",
+                  "What documents are required for NDMC school admission?"
               ].map((question, index) => (
                 <motion.button
                   key={index}
@@ -205,7 +205,7 @@ export default function Home() {
             transition={{ delay: 1.1, duration: 0.5 }}
             className="text-sm text-muted-foreground text-center max-w-3xl mx-auto px-2 w-full mt-1"
           >
-            This bot provides information about Joint Admission Committee (JAC) Chandigarh. For official information, please visit <a href="https://jacchd.admissions.nic.in/" target="_blank" rel="noopener noreferrer" className="text-amber-500 hover:text-amber-400 underline">jacchd.admissions.nic.in</a>
+              This bot provides information about New Delhi Municipal Council (NDMC) Chandigarh. For official information, please visit <a href="https://www.ndmc.gov.in/" target="_blank" rel="noopener noreferrer" className="text-amber-500 hover:text-amber-400 underline">ndmc.gov.in</a>
           </motion.div>
         </div>
       )}

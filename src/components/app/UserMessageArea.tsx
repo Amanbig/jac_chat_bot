@@ -291,7 +291,7 @@ export default function UserMessageArea({ messages, className, onTypingComplete 
                                     </Avatar>
                                     <div className="flex-1 overflow-hidden">
                                         <div className="text-xs sm:text-sm font-medium mb-1 text-foreground">
-                                            {message.role === "user" ? "You" : "JAC BOT"}
+                                            {message.role === "user" ? "You" : "NDMC BOT"}
                                         </div>
                                         <div className={cn(
                                             "prose prose-sm max-w-none prose-invert dark:prose-invert"
@@ -311,7 +311,7 @@ export default function UserMessageArea({ messages, className, onTypingComplete 
                                                             onComplete={onTypingComplete}
                                                         />
                                                     </div>
-                                                    <p className="text-sm p-2">Please refer to the following source for more information:{'   '}
+                                                    {/* <p className="text-sm p-2">Please refer to the following source for more information:{'   '}
                                                         <a
                                                             href={`/pdfs/jac_brochure_2025.pdf`}
                                                             className="font-medium text-blue-400 underline transition-colors duration-150 hover:text-blue-300"
@@ -321,16 +321,16 @@ export default function UserMessageArea({ messages, className, onTypingComplete 
                                                         >
                                                             jac_brochure_2025
                                                         </a>
-                                                    </p>
+                                                    </p> */}
                                                     <p className="text-sm bg-muted border border-border rounded-md p-3 my-4 text-muted-foreground mx-auto">
                                                         <span className="font-medium">Disclaimer:</span> Information displayed may not reflect the most current data. For official and up-to-date information, please visit the
                                                         <a
-                                                            href="https://jacchd.admissions.nic.in/"
+                                                            href="https://www.ndmc.gov.in/"
                                                             target="_blank"
                                                             rel="noopener noreferrer"
                                                             className="text-blue-600 hover:text-blue-800 underline mx-1 font-medium"
                                                         >
-                                                            Joint Admission Committee Chandigarh portal
+                                                            New Delhi Municipal Council portal
                                                         </a>
                                                         directly.
                                                     </p>

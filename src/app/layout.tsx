@@ -4,8 +4,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { ModeToggle } from "@/components/app/themeToggle";
 
 export const metadata: Metadata = {
-  title: "JAC BOT",
-  description: "Specifically designed for councelling purposes for jac",
+  title: "NDMC BOT",
+  description: "Specifically designed for getting information about NDMC",
 };
 
 export default function RootLayout({
