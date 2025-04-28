@@ -205,7 +205,7 @@ export default function Home() {
             transition={{ delay: 1.1, duration: 0.5 }}
             className="text-sm text-muted-foreground text-center max-w-3xl mx-auto px-2 w-full mt-1"
           >
-              This bot provides information about New Delhi Municipal Council (NDMC) Chandigarh. For official information, please visit <a href="https://www.ndmc.gov.in/" target="_blank" rel="noopener noreferrer" className="text-amber-500 hover:text-amber-400 underline">ndmc.gov.in</a>
+              This bot provides information about New Delhi Municipal Council (NDMC). For official information, please visit <a href="https://www.ndmc.gov.in/" target="_blank" rel="noopener noreferrer" className="text-amber-500 hover:text-amber-400 underline">ndmc.gov.in</a>
           </motion.div>
         </div>
       )}
