@@ -1,8 +1,8 @@
+![jac_chat_bot](https://socialify.git.ci/Amanbig/jac_chat_bot/image?font=Source+Code+Pro&language=1&name=1&owner=1&pattern=Brick+Wall&theme=Dark)
+
 # JAC Chat Bot
 
 A conversational AI assistant designed to provide guidance about Joint Admission Committee (JAC) admissions process, built with Next.js and modern web technologies.
-
-![JAC Chat Bot](./public/bot-avatar.png)
 
 ## 🌟 Features
 
